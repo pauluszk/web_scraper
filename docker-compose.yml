@@ -1,0 +1,25 @@
+# docker-compose.yml
+version: '3'
+services:
+  laravel-server:
+    environment:
+      - APACHE_RUN_USER=#1000
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: scraper-laravel-server
+    ports:
+      - "8080:80"
+    volumes:
+      - ./:/var/www/html:delegated
+
+  mariadb-server:
+    image: mariadb
+    container_name: scraper-mariadb-server
+    environment:
+      MYSQL_ROOT_PASSWORD: laravel12345!
+      MYSQL_DATABASE: scraper
+      MYSQL_USER: kristof
+      MYSQL_PASSWORD: laravel12345!
+    ports:
+      - "3306:3306"
